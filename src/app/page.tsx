@@ -179,14 +179,8 @@ export default function HomePage() {
               {/* CTAs */}
               <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row">
                 <PrimaryButton href={siteConfig.cta.primary.href} showArrow>
-                  Get started today
+                  Try it for free
                 </PrimaryButton>
-                <a href="tel:+1234567890" className="flex items-center gap-2 text-[#4A4A68] hover:text-[#0F2854]">
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  <span className="font-medium">Call us directly</span>
-                </a>
               </div>
             </div>
 
@@ -206,29 +200,32 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials Section - X/Twitter Style Carousel */}
-      <section className="overflow-hidden py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            badge="Testimonials"
-            title="What our users are saying"
-          />
-        </div>
+      {/* TODO: Enable when real testimonials are available */}
+      {false && (
+        <section className="overflow-hidden py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionHeader
+              badge="Testimonials"
+              title="What our users are saying"
+            />
+          </div>
 
-        {/* Scrolling testimonials */}
-        <div
-          ref={scrollRef}
-          className="mt-12 flex gap-6 overflow-hidden px-4"
-          style={{ scrollBehavior: "auto" }}
-        >
-          {/* Duplicate testimonials for infinite scroll effect */}
-          {[...testimonials, ...testimonials].map((testimonial, index) => (
-            <TestimonialCard key={index} testimonial={testimonial} />
-          ))}
-        </div>
-      </section>
+          {/* Scrolling testimonials */}
+          <div
+            ref={scrollRef}
+            className="mt-12 flex gap-6 overflow-hidden px-4"
+            style={{ scrollBehavior: "auto" }}
+          >
+            {/* Duplicate testimonials for infinite scroll effect */}
+            {[...testimonials, ...testimonials].map((testimonial, index) => (
+              <TestimonialCard key={index} testimonial={testimonial} />
+            ))}
+          </div>
+        </section>
+      )}
 
-      {/* Features Section */}
-      <section id="features" className="bg-white px-4 py-20 sm:px-6 lg:px-8">
+      {/* Features Section - Bento Grid */}
+      <section id="features" className="bg-[#F8FCFF] px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeader
             badge="Features"
@@ -236,15 +233,130 @@ export default function HomePage() {
             subtitle="Keep all your projects, tasks, and posts in one organized hub with a centralized workspace."
           />
 
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
-              <FeatureCard
-                key={feature.title}
-                title={feature.title}
-                description={feature.description}
-                icon={feature.icon}
-              />
-            ))}
+          {/* Bento Grid - 2 Columns with 40/60 Splits */}
+          <div className="mt-16 flex flex-col gap-6">
+            {/* Row 1 - Social Accounts (40%) + Scheduled Posts (60%) */}
+            <div className="grid gap-6 lg:grid-cols-[2fr_3fr]">
+              {/* Feature 1 - Social Accounts Linking - 40% */}
+              <div className="group overflow-hidden rounded-2xl bg-white p-6 shadow-[0_4px_20px_rgba(15,40,84,0.06)] transition-all hover:shadow-[0_8px_30px_rgba(15,40,84,0.1)]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#BDE8F5] px-3 py-1 text-xs font-medium text-[#0F2854]">
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                  Connect Once
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-[#0F2854]">Social Accounts Linking</h3>
+                <p className="mt-3 text-[#4A4A68] leading-relaxed">
+                  Hook up all your favorite platforms in minutes—Instagram, TikTok, Facebook, X, LinkedIn, and more. Once connected, every post flows out from a single dashboard.
+                </p>
+                <div className="mt-5 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F7FF] to-[#E8F4FD] p-6">
+                  <div className="flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#BDE8F5] text-sm text-[#9090A7]">
+                    Image Placeholder
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 2 - Scheduled Posts - 60% */}
+              <div className="group overflow-hidden rounded-2xl bg-white p-6 shadow-[0_4px_20px_rgba(15,40,84,0.06)] transition-all hover:shadow-[0_8px_30px_rgba(15,40,84,0.1)]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#F0F7FF] px-3 py-1 text-xs font-medium text-[#4988C4]">
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Time It Right
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-[#0F2854]">Scheduled Posts & Drafts</h3>
+                <p className="mt-3 text-[#4A4A68] leading-relaxed">
+                  Capture ideas the moment inspiration strikes, then polish and publish when the timing is perfect. Your drafts stay safely tucked away until you're ready.
+                </p>
+                <div className="mt-5 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F7FF] to-[#E8F4FD] p-6">
+                  <div className="flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#BDE8F5] text-sm text-[#9090A7]">
+                    Image Placeholder
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Row 2 - Workspaces (60%) + Analytics (40%) */}
+            <div className="grid gap-6 lg:grid-cols-[3fr_2fr]">
+              {/* Feature 3 - Workspaces - 60% */}
+              <div className="group overflow-hidden rounded-2xl bg-white p-6 shadow-[0_4px_20px_rgba(15,40,84,0.06)] transition-all hover:shadow-[0_8px_30px_rgba(15,40,84,0.1)]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#E8F9EE] px-3 py-1 text-xs font-medium text-emerald-600">
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                  </svg>
+                  Stay Organized
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-[#0F2854]">Workspaces (Brands)</h3>
+                <p className="mt-3 text-[#4A4A68] leading-relaxed">
+                  Give every brand, client, or project its own private space. Switch between them instantly without wading through unrelated content.
+                </p>
+                <div className="mt-5 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F7FF] to-[#E8F4FD] p-6">
+                  <div className="flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#BDE8F5] text-sm text-[#9090A7]">
+                    Image Placeholder
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 4 - Analytics - 40% */}
+              <div className="group overflow-hidden rounded-2xl bg-white p-6 shadow-[0_4px_20px_rgba(15,40,84,0.06)] transition-all hover:shadow-[0_8px_30px_rgba(15,40,84,0.1)]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#FFF7E6] px-3 py-1 text-xs font-medium text-amber-600">
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  See What Works
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-[#0F2854]">Analytics</h3>
+                <p className="mt-3 text-[#4A4A68] leading-relaxed">
+                  Glance at the numbers that matter: reach, engagement, growth. Without drowning in data. Spot winners fast, double down on what's clicking.
+                </p>
+                <div className="mt-5 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F7FF] to-[#E8F4FD] p-6">
+                  <div className="flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#BDE8F5] text-sm text-[#9090A7]">
+                    Image Placeholder
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Row 3 - Content Calendar (40%) + Bulk Scheduling (60%) */}
+            <div className="grid gap-6 lg:grid-cols-[2fr_3fr]">
+              {/* Feature 5 - Content Calendar - 40% */}
+              <div className="group overflow-hidden rounded-2xl bg-white p-6 shadow-[0_4px_20px_rgba(15,40,84,0.06)] transition-all hover:shadow-[0_8px_30px_rgba(15,40,84,0.1)]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#F3E8FF] px-3 py-1 text-xs font-medium text-purple-600">
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Plan Visually
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-[#0F2854]">Content Calendar</h3>
+                <p className="mt-3 text-[#4A4A68] leading-relaxed">
+                  Your entire content roadmap laid out in one clean view. Drag posts around to shuffle the schedule, zoom into a week, or pan out for the big picture.
+                </p>
+                <div className="mt-5 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F7FF] to-[#E8F4FD] p-6">
+                  <div className="flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#BDE8F5] text-sm text-[#9090A7]">
+                    Image Placeholder
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 6 - Bulk Scheduling - 60% (White bg) */}
+              <div className="group overflow-hidden rounded-2xl bg-white p-6 shadow-[0_4px_20px_rgba(15,40,84,0.06)] transition-all hover:shadow-[0_8px_30px_rgba(15,40,84,0.1)]">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#0F2854] px-3 py-1 text-xs font-medium text-white">
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  Work Smarter
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-[#0F2854]">Bulk Scheduling</h3>
+                <p className="mt-3 text-[#4A4A68] leading-relaxed">
+                  Load up an entire week or month of posts in a single power session. Upload, arrange, confirm, done. Then step away and let automation handle the rest.
+                </p>
+                <div className="mt-5 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#F0F7FF] to-[#E8F4FD] p-6">
+                  <div className="flex h-32 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#BDE8F5] text-sm text-[#9090A7]">
+                    Image Placeholder
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -277,8 +389,135 @@ export default function HomePage() {
 
 
 
+      {/* Founder Bio Section */}
+      <section className="px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl">
+          <div className="rounded-2xl bg-white p-8 shadow-[0_4px_20px_rgba(15,40,84,0.08)] md:p-12">
+            <div className="grid gap-10 md:grid-cols-[280px_1fr] md:gap-12">
+              {/* Left - Photo & Info */}
+              <div className="flex flex-col items-center md:items-start">
+                {/* Founder photo */}
+                <div className="h-64 w-64 overflow-hidden rounded-full bg-gradient-to-br from-[#BDE8F5] to-[#4988C4] shadow-lg ring-4 ring-white">
+                  <img
+                    src="/images/mehdi-founder.jpg"
+                    alt="Mehdi - Co-founder of Timed Post"
+                    className="h-full w-full object-cover object-top"
+                  />
+                </div>
+
+                <div className="mt-6 text-center md:text-left">
+                  <h3 className="text-xl font-bold text-[#0F2854]">Mehdi</h3>
+                  <p className="mt-1 text-sm text-[#6B6B8D]">Co-founder @ Timed Post</p>
+
+                  {/* Social proof - optional */}
+                  <div className="mt-3 flex items-center justify-center gap-2 md:justify-start">
+                    <svg className="h-4 w-4 text-[#4A4A68]" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    <span className="text-sm text-[#6B6B8D]">DJ / Producer / Builder</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right - Bio Text */}
+              <div className="space-y-5">
+                <h2 className="text-2xl font-bold text-[#0F2854] md:text-3xl">
+                  hey, i&apos;m mehdi 👋
+                </h2>
+
+                <div className="space-y-4 text-[#4A4A68] leading-relaxed">
+                  <p>
+                    i&apos;m one of the guys building timed post with my dev friend.
+                    i did ecom for years too, so yeah i lived on social media.
+                  </p>
+
+                  <p>
+                    my biggest problem was never &quot;ideas&quot;.
+                    <span className="font-medium text-[#0F2854]"> it was the boring chaos after the content is ready.</span>
+                  </p>
+
+                  <p>
+                    every platform wants something different.
+                    different formats, different vibes, different rules, different everything.
+                    and when you manage more than one account, it turns into this messy loop:
+                  </p>
+
+                  <p className="rounded-xl bg-[#F8FCFF] p-4 text-[#6B6B8D] italic border-l-4 border-[#4988C4]">
+                    upload the same media again and again, tweak captions, switch apps, switch accounts, pray the post looks right.
+                    it&apos;s not hard, it&apos;s just… draining.
+                  </p>
+
+                  <p>
+                    i tried a bunch of schedulers to fix it.
+                    but most of them felt either <span className="font-medium text-[#0F2854]">too expensive</span>, or <span className="font-medium text-[#0F2854]">too complex</span> for what i actually needed.
+                    i just wanted something simple and affordable that helps me ship posts without the headache.
+                  </p>
+
+                  <p>
+                    so i built timed post to manage my own apps, and keep my weekly posting plan clean.
+                    <span className="font-medium text-[#0F2854]"> now we&apos;re building it for other creators and builders too.</span>
+                  </p>
+                </div>
+
+                {/* CTA Button */}
+                <div className="pt-4">
+                  <Link
+                    href="/app"
+                    className="inline-flex items-center gap-2 rounded-[6px] bg-gradient-to-r from-[#1C4D8D] to-[#4988C4] px-8 py-3.5 font-semibold text-white shadow-lg shadow-[#1C4D8D]/25 transition-all hover:from-[#0F2854] hover:to-[#1C4D8D]"
+                  >
+                    Try Timed Post for free
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Trust indicators */}
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <div className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_2px_8px_rgba(15,40,84,0.06)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#BDE8F5]">
+                <svg className="h-5 w-5 text-[#1C4D8D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-medium text-[#0F2854]">7-day free trial</p>
+                <p className="text-xs text-[#6B6B8D]">Test everything before you commit</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_2px_8px_rgba(15,40,84,0.06)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#BDE8F5]">
+                <svg className="h-5 w-5 text-[#1C4D8D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-medium text-[#0F2854]">Cancel anytime</p>
+                <p className="text-xs text-[#6B6B8D]">No long-term commitments required</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 rounded-xl bg-white p-4 shadow-[0_2px_8px_rgba(15,40,84,0.06)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#BDE8F5]">
+                <svg className="h-5 w-5 text-[#1C4D8D]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-medium text-[#0F2854]">14-day money back</p>
+                <p className="text-xs text-[#6B6B8D]">Refunds available within 14 days</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
-      <section id="pricing" className="bg-white px-4 py-20 sm:px-6 lg:px-8">
+      <section id="pricing" className="bg-[#F8FCFF] px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <SectionHeader
             title="Simple plans. No weird surprises."
@@ -302,13 +541,13 @@ export default function HomePage() {
             </button>
             <span className={`text-sm ${billingCycle === "yearly" ? "text-[#0F2854] font-medium" : "text-[#6B6B8D]"}`}>
               Yearly
-              <span className="ml-1.5 rounded-full bg-[#BDE8F5] px-2 py-0.5 text-xs text-[#0F2854]">
-                Save 20%
+              <span className="ml-1.5 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-600">
+                2 months free
               </span>
             </span>
           </div>
 
-          <div className="mt-12 grid gap-8 lg:grid-cols-3">
+          <div className="mt-12 grid gap-8 lg:grid-cols-2 max-w-4xl mx-auto">
             {pricingPlans.map((plan) => (
               <PricingCard key={plan.name} plan={plan} billingCycle={billingCycle} />
             ))}

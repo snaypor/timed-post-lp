@@ -95,7 +95,7 @@ export function FooterCTA() {
                                 {/* Primary CTA */}
                                 <Link
                                     href={siteConfig.cta.primary.href}
-                                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#0F2854] px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-[#1C4D8D] hover:shadow-lg"
+                                    className="group inline-flex items-center justify-center gap-2 rounded-[6px] bg-[#0F2854] px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-[#1C4D8D] hover:shadow-lg"
                                 >
                                     Start 7-day Free Trial
                                     <svg
@@ -111,7 +111,7 @@ export function FooterCTA() {
                                 {/* Secondary CTA - Sign up with Google */}
                                 <Link
                                     href={siteConfig.cta.primary.href}
-                                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#E5E7F0] bg-white px-8 py-3.5 text-sm font-semibold text-[#0F2854] transition-all hover:border-[#4988C4] hover:shadow-md"
+                                    className="inline-flex items-center justify-center gap-2 rounded-[6px] border border-[#E5E7F0] bg-white px-8 py-3.5 text-sm font-semibold text-[#0F2854] transition-all hover:border-[#4988C4] hover:shadow-md"
                                 >
                                     <svg className="h-4 w-4" viewBox="0 0 24 24">
                                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />

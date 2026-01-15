@@ -12,7 +12,7 @@ export function PrimaryButton({ href, children, showArrow = false, className = "
     return (
         <Link
             href={href}
-            className={`inline-flex items-center justify-center rounded-full bg-[#1C4D8D] px-7 py-3.5 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#0F2854] hover:shadow-md ${className}`}
+            className={`inline-flex items-center justify-center rounded-[6px] bg-[#1C4D8D] px-7 py-3.5 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#0F2854] hover:shadow-md ${className}`}
         >
             {children}
             {showArrow && (

@@ -238,11 +238,6 @@ export default function HashtagGeneratorPage() {
 
                     {/* Header */}
                     <div className="mb-12 text-center">
-                        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#BDE8F5] text-[#0F2854]">
-                            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
-                            </svg>
-                        </div>
                         <h1 className="text-3xl font-bold text-[#0F2854] sm:text-4xl lg:text-5xl">
                             Free Hashtag Generator
                         </h1>
@@ -374,7 +369,7 @@ export default function HashtagGeneratorPage() {
                                 <button
                                     onClick={handleGenerate}
                                     disabled={!topic.trim() || isLoading}
-                                    className="w-full rounded-full bg-[#1C4D8D] py-3.5 font-semibold text-white transition-all hover:bg-[#0F2854] disabled:cursor-not-allowed disabled:opacity-50"
+                                    className="w-full rounded-[6px] bg-[#1C4D8D] py-3.5 font-semibold text-white transition-all hover:bg-[#0F2854] disabled:cursor-not-allowed disabled:opacity-50"
                                 >
                                     {isLoading ? "Finding the best hashtags..." : "Generate Hashtags"}
                                 </button>
@@ -414,7 +409,7 @@ export default function HashtagGeneratorPage() {
                             {isLoading && (
                                 <div className="flex h-64 flex-col items-center justify-center text-center">
                                     <div className="mb-4 h-8 w-8 animate-spin rounded-full border-2 border-[#BDE8F5] border-t-[#1C4D8D]"></div>
-                                    <p className="text-[#4A4A68]">Generating hashtags with AI...</p>
+                                    <p className="text-[#4A4A68]">Generating hashtags...</p>
                                     <p className="mt-1 text-sm text-[#9090A7]">This may take a few seconds</p>
                                 </div>
                             )}
@@ -459,7 +454,7 @@ export default function HashtagGeneratorPage() {
                                     <div className="flex flex-wrap gap-2 border-t border-[#E5E7F0] pt-4">
                                         <button
                                             onClick={copyAll}
-                                            className="flex items-center gap-1.5 rounded-full bg-[#1C4D8D] px-4 py-2 text-sm font-medium text-white transition-all hover:bg-[#0F2854]"
+                                            className="flex items-center gap-1.5 rounded-[6px] bg-[#1C4D8D] px-4 py-2 text-sm font-medium text-white transition-all hover:bg-[#0F2854]"
                                         >
                                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -469,19 +464,19 @@ export default function HashtagGeneratorPage() {
                                         <button
                                             onClick={copySelected}
                                             disabled={selectedHashtags.size === 0}
-                                            className="flex items-center gap-1.5 rounded-full border border-[#1C4D8D] px-4 py-2 text-sm font-medium text-[#1C4D8D] transition-all hover:bg-[#F0F7FF] disabled:opacity-50"
+                                            className="flex items-center gap-1.5 rounded-[6px] border border-[#1C4D8D] px-4 py-2 text-sm font-medium text-[#1C4D8D] transition-all hover:bg-[#F0F7FF] disabled:opacity-50"
                                         >
                                             Copy selected ({selectedHashtags.size})
                                         </button>
                                         <button
                                             onClick={copyAsText}
-                                            className="flex items-center gap-1.5 rounded-full border border-[#E5E7F0] px-4 py-2 text-sm font-medium text-[#4A4A68] transition-all hover:bg-[#F8FCFF]"
+                                            className="flex items-center gap-1.5 rounded-[6px] border border-[#E5E7F0] px-4 py-2 text-sm font-medium text-[#4A4A68] transition-all hover:bg-[#F8FCFF]"
                                         >
                                             Copy as list
                                         </button>
                                         <button
                                             onClick={handleRegenerate}
-                                            className="flex items-center gap-1.5 rounded-full border border-[#E5E7F0] px-4 py-2 text-sm font-medium text-[#4A4A68] transition-all hover:bg-[#F8FCFF]"
+                                            className="flex items-center gap-1.5 rounded-[6px] border border-[#E5E7F0] px-4 py-2 text-sm font-medium text-[#4A4A68] transition-all hover:bg-[#F8FCFF]"
                                         >
                                             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -679,7 +674,7 @@ export default function HashtagGeneratorPage() {
                             <div className="flex flex-wrap gap-4">
                                 <Link
                                     href="/app"
-                                    className="inline-flex items-center rounded-full bg-white px-6 py-3 font-semibold text-[#0F2854] transition-all hover:bg-[#BDE8F5]"
+                                    className="inline-flex items-center rounded-[6px] bg-white px-6 py-3 font-semibold text-[#0F2854] transition-all hover:bg-[#BDE8F5]"
                                 >
                                     Start scheduling with Timed Post
                                     <svg className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -688,7 +683,7 @@ export default function HashtagGeneratorPage() {
                                 </Link>
                                 <Link
                                     href="/#pricing"
-                                    className="inline-flex items-center rounded-full border border-white/30 px-6 py-3 font-semibold text-white transition-all hover:bg-white/10"
+                                    className="inline-flex items-center rounded-[6px] border border-white/30 px-6 py-3 font-semibold text-white transition-all hover:bg-white/10"
                                 >
                                     See pricing
                                 </Link>
@@ -699,6 +694,52 @@ export default function HashtagGeneratorPage() {
                                     ← Back to all free tools
                                 </Link>
                             </p>
+                        </div>
+                    </section>
+
+                    {/* Related Tools */}
+                    <section className="mt-16">
+                        <h2 className="mb-6 text-2xl font-bold text-[#0F2854]">Related Tools</h2>
+                        <div className="grid gap-6 md:grid-cols-3">
+                            <Link
+                                href="/tools/bio-generator"
+                                className="group rounded-2xl border border-[#E5E7F0] bg-white p-6 transition-all hover:border-[#4988C4] hover:shadow-md"
+                            >
+                                <span className="text-xs font-medium text-[#6B6B8D]">ALL PLATFORMS</span>
+                                <h3 className="mt-2 text-lg font-semibold text-[#0F2854] group-hover:text-[#4988C4]">
+                                    Bio Generator
+                                </h3>
+                                <p className="mt-2 text-sm text-[#4A4A68]">Create a compelling bio that captures your personality and attracts followers.</p>
+                                <span className="mt-4 inline-flex items-center text-sm font-medium text-[#4988C4]">
+                                    Try Now →
+                                </span>
+                            </Link>
+                            <Link
+                                href="/tools/caption-generator"
+                                className="group rounded-2xl border border-[#E5E7F0] bg-white p-6 transition-all hover:border-[#4988C4] hover:shadow-md"
+                            >
+                                <span className="text-xs font-medium text-[#6B6B8D]">INSTAGRAM</span>
+                                <h3 className="mt-2 text-lg font-semibold text-[#0F2854] group-hover:text-[#4988C4]">
+                                    Caption Generator
+                                </h3>
+                                <p className="mt-2 text-sm text-[#4A4A68]">Generate engaging captions for Instagram, TikTok, and more.</p>
+                                <span className="mt-4 inline-flex items-center text-sm font-medium text-[#4988C4]">
+                                    Try Now →
+                                </span>
+                            </Link>
+                            <Link
+                                href="/tools/tweet-generator"
+                                className="group rounded-2xl border border-[#E5E7F0] bg-white p-6 transition-all hover:border-[#4988C4] hover:shadow-md"
+                            >
+                                <span className="text-xs font-medium text-[#6B6B8D]">TWITTER</span>
+                                <h3 className="mt-2 text-lg font-semibold text-[#0F2854] group-hover:text-[#4988C4]">
+                                    Tweet Generator
+                                </h3>
+                                <p className="mt-2 text-sm text-[#4A4A68]">Create viral tweets that spark conversations and grow your presence.</p>
+                                <span className="mt-4 inline-flex items-center text-sm font-medium text-[#4988C4]">
+                                    Try Now →
+                                </span>
+                            </Link>
                         </div>
                     </section>
                 </div>
