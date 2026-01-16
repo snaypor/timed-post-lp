@@ -1,16 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
+import { tweetSchema, validateInput } from "@/lib/validation";
+import { runSecurityChecks, RATE_LIMITS, logSecurityEvent } from "@/lib/security";
 
 export async function POST(request: NextRequest) {
     try {
-        const { topic, tone, includeHashtags, includeEmoji } = await request.json();
+        // Run security checks (origin + rate limit)
+        const securityCheck = await runSecurityChecks(request, RATE_LIMITS.tools);
+        if (!securityCheck.success) {
+            return securityCheck.response;
+        }
 
-        if (!topic || typeof topic !== "string") {
+        // Parse and validate input
+        let body: unknown;
+        try {
+            body = await request.json();
+        } catch {
             return NextResponse.json(
-                { error: "Topic is required" },
+                { error: "Invalid JSON" },
                 { status: 400 }
             );
         }
 
+        const validation = validateInput(tweetSchema, body);
+        if (!validation.success) {
+            logSecurityEvent(request, "validation_failure");
+            return validation.response;
+        }
+
+        const { topic, tone, includeHashtags, includeEmoji } = validation.data;
+
+        // Check API key
         const apiKey = process.env.OPENAI_API_KEY;
         if (!apiKey) {
             return NextResponse.json(
@@ -66,11 +85,10 @@ Each tweet should be different in structure and approach. Return only a JSON arr
         });
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            console.error("OpenAI API error:", errorData);
+            logSecurityEvent(request, "api_error", { status: response.status });
             return NextResponse.json(
                 { error: "Failed to generate tweets. Please try again." },
-                { status: response.status }
+                { status: 502 }
             );
         }
 
@@ -101,6 +119,7 @@ Each tweet should be different in structure and approach. Return only a JSON arr
 
         return NextResponse.json({ tweets: tweets.slice(0, 5) });
     } catch (error) {
+        // Never expose stack traces to client
         console.error("Tweet generation error:", error);
         return NextResponse.json(
             { error: "Something went wrong. Please try again." },

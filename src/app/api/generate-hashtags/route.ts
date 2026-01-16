@@ -1,19 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
+import { hashtagsSchema, validateInput } from "@/lib/validation";
+import { runSecurityChecks, RATE_LIMITS, logSecurityEvent } from "@/lib/security";
 
 export async function POST(request: NextRequest) {
     try {
-        const { topic, platform, style, count } = await request.json();
+        // Run security checks (origin + rate limit)
+        const securityCheck = await runSecurityChecks(request, RATE_LIMITS.tools);
+        if (!securityCheck.success) {
+            return securityCheck.response;
+        }
 
-        if (!topic || typeof topic !== "string") {
+        // Parse and validate input
+        let body: unknown;
+        try {
+            body = await request.json();
+        } catch {
             return NextResponse.json(
-                { error: "Topic is required" },
+                { error: "Invalid JSON" },
                 { status: 400 }
             );
         }
 
+        const validation = validateInput(hashtagsSchema, body);
+        if (!validation.success) {
+            logSecurityEvent(request, "validation_failure");
+            return validation.response;
+        }
+
+        const { topic, platform, style, count } = validation.data;
+
+        // Check API key
         const apiKey = process.env.OPENAI_API_KEY;
-        console.log("API Key exists:", !!apiKey);
-        console.log("API Key length:", apiKey?.length);
         if (!apiKey) {
             return NextResponse.json(
                 { error: "API key not configured" },
@@ -69,11 +86,10 @@ Return only a JSON array of hashtag words without the # symbol.`;
         });
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            console.error("OpenAI API error:", errorData);
+            logSecurityEvent(request, "api_error", { status: response.status });
             return NextResponse.json(
                 { error: "Failed to generate hashtags. Please try again." },
-                { status: response.status }
+                { status: 502 }
             );
         }
 
@@ -117,6 +133,7 @@ Return only a JSON array of hashtag words without the # symbol.`;
 
         return NextResponse.json({ hashtags: formattedHashtags });
     } catch (error) {
+        // Never expose stack traces to client
         console.error("Hashtag generation error:", error);
         return NextResponse.json(
             { error: "Something went wrong. Please try again." },

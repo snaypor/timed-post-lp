@@ -1,16 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
+import { bioSchema, validateInput } from "@/lib/validation";
+import { runSecurityChecks, RATE_LIMITS, logSecurityEvent } from "@/lib/security";
 
 export async function POST(request: NextRequest) {
     try {
-        const { name, niche, tone } = await request.json();
+        // Run security checks (origin + rate limit)
+        const securityCheck = await runSecurityChecks(request, RATE_LIMITS.tools);
+        if (!securityCheck.success) {
+            return securityCheck.response;
+        }
 
-        if (!name || typeof name !== "string" || !niche || typeof niche !== "string") {
+        // Parse and validate input
+        let body: unknown;
+        try {
+            body = await request.json();
+        } catch {
             return NextResponse.json(
-                { error: "Name and niche are required" },
+                { error: "Invalid JSON" },
                 { status: 400 }
             );
         }
 
+        const validation = validateInput(bioSchema, body);
+        if (!validation.success) {
+            logSecurityEvent(request, "validation_failure", {
+                fieldCount: Object.keys((validation.response as Response & { json?: () => Promise<{ fields?: object }> })?.json?.() || {}).length,
+            });
+            return validation.response;
+        }
+
+        const { name, niche, tone } = validation.data;
+
+        // Check API key
         const apiKey = process.env.OPENAI_API_KEY;
         if (!apiKey) {
             return NextResponse.json(
@@ -65,11 +86,10 @@ Each bio should be different in structure and approach. Return only a JSON array
         });
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            console.error("OpenAI API error:", errorData);
+            logSecurityEvent(request, "api_error", { status: response.status });
             return NextResponse.json(
                 { error: "Failed to generate bios. Please try again." },
-                { status: response.status }
+                { status: 502 }
             );
         }
 
@@ -103,6 +123,7 @@ Each bio should be different in structure and approach. Return only a JSON array
 
         return NextResponse.json({ bios: bios.slice(0, 5) });
     } catch (error) {
+        // Never expose stack traces to client
         console.error("Bio generation error:", error);
         return NextResponse.json(
             { error: "Something went wrong. Please try again." },
